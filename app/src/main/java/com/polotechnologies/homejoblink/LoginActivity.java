@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -12,10 +13,12 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.polotechnologies.homejoblink.ui.MainActivity;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_UP = 2000;
     Button createAccountButton;
     Button signInButton;
+    private ProgressBar loadingProcess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +35,23 @@ public class LoginActivity extends AppCompatActivity {
 
         createAccountButton = findViewById(R.id.buttonCreateAccount);
         signInButton = findViewById(R.id.buttonSignIn);
+        loadingProcess = findViewById(R.id.loginActivityProgress);
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingProcess.setVisibility(View.VISIBLE);
+                signUp();
+                loadingProcess.setVisibility(View.GONE);
             }
         });
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingProcess.setVisibility(View.VISIBLE);
                 signIn();
+                loadingProcess.setVisibility(View.GONE);
             }
         });
     }
@@ -50,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
      * Method to Sign In The User With Phone Number
      */
     private void signIn() {
+        loadingProcess.setVisibility(View.GONE);
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Collections.singletonList(
                 new AuthUI.IdpConfig.PhoneBuilder().build());
@@ -64,6 +75,24 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method to Sign In The User With Phone Number
+     */
+    private void signUp() {
+        loadingProcess.setVisibility(View.GONE);
+        // Choose authentication providers
+        List<AuthUI.IdpConfig> providers = Collections.singletonList(
+                new AuthUI.IdpConfig.PhoneBuilder().build());
+
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_UP);
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -79,17 +108,22 @@ public class LoginActivity extends AppCompatActivity {
                     // Successfully signed in
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     Toast.makeText(this, "Login Successfully", Toast.LENGTH_SHORT).show();
+
+                    Intent openMAinActivity = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(openMAinActivity);
+                    finish();
                     // ...
                 } else {
 
                     // Sign in failed. If response is null the user canceled the
-                    if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+                    if ((response != null ? response.getError().getErrorCode() : 0) == ErrorCodes.NO_NETWORK) {
                         printMessage("No Network");
                     } else {
-                        printMessage("Cancelled");
+                        printMessage("Cancelled by User");
                     }
 
                 }
+                break;
             case RC_SIGN_UP:
 
                 if (resultCode == RESULT_OK) {
@@ -104,21 +138,21 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(startAccountCreation);
 
                 } else {
-                    // Sign in failed
-
-                    if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-                        printMessage("Failed: No Network");
+                    // Sign in failed. If response is null the user canceled the
+                    if ((response != null ? response.getError().getErrorCode() : 0) == ErrorCodes.NO_NETWORK) {
+                        printMessage("No Network");
                     } else {
-                        printMessage("Cancelled");
+                        printMessage("Cancelled by User");
                     }
 
                 }
+                break;
 
         }
     }
 
     private void printMessage(String message) {
-        Toast.makeText(this, "Login Failed:  " + " Cause " + message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Login Failed: " + " Cause " + message, Toast.LENGTH_SHORT).show();
     }
 
 }
