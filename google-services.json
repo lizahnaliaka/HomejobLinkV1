@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "809374777950",
+    "firebase_url": "https://homejob-link.firebaseio.com",
+    "project_id": "homejob-link",
+    "storage_bucket": "homejob-link.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809374777950:android:6e47e6ad7c65399c",
+        "android_client_info": {
+          "package_name": "com.polotechnologies.homejoblink"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809374777950-gdvqhqjmcs8u6o7pfjgs9dih74vsojuo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4VYs7WGJw5cKH1l7zOnBiqMa7rKc49Co"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
