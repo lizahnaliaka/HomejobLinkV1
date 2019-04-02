@@ -3,11 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lyt2"
-    android:background="@android:color/holo_red_dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/holo_red_dark"
     android:visibility="visible"
     tools:context="CreateAccountActivity">
+
+    <ProgressBar
+        android:id="@+id/creatingAccountProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/title"
@@ -57,38 +68,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/hint_job_catgory"
-            android:textColor="@android:color/black"
-            />
+            android:textColor="@android:color/black" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/jobTittleLayout"
-        android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobCategoryLayout">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/jobTittle"
-            android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/hint_job_tittle" />
+            android:hint="@string/hint_job_tittle"
+            android:textColor="@android:color/black" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/jobQualificationLayout"
-        android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
+        android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobTittleLayout">
@@ -98,8 +108,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/hint_job_qualification"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white" />
     </android.support.design.widget.TextInputLayout>
+
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/jobDescriptionLayout"
@@ -110,15 +121,14 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobQualificationLayout"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/jobQualificationLayout">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/jobDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/hint_brief_description"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
